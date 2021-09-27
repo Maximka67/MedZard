@@ -1,37 +1,40 @@
 <template>
   <div>
     <div class="container">
-  <div class="row justify-content-center align-items-center">
-    <div class="form-group mt-5">
-      <div class="mx-auto" style="width: 400px;">
-        <div class="row">
-          <div class="col-4">Table:</div>
-            <select class="col-auto" @change="onChange($event)" v-model="table_name">
-                <option v-for="item in tables_name" :key="item">{{item}}</option>
-            </select>
+      <div class="row justify-content-center align-items-center">
+        <div class="form-group mt-5">
+          <div class="mx-auto" style="width: 400px;">
+            <div class="row">
+              <div class="col-4">Table:</div>
+                <select class="col-auto" @change="onChange($event)" v-model="table_name">
+                    <option v-for="item in tables_name" :key="item">{{item}}</option>
+                </select>
+            </div>
+          <br>
+          <div v-if="this.table_name != ''" style="background-color: rgba(40, 191, 103, 0.4)">
+          <h2  style="text-align:center">
+            Create new {{table_name}}
+          </h2>
+          <div v-for="item in this.column_name" :key="item.id">
+            <label for="input-field">{{item}}</label>
+            <input id="input-field" class="form-control" type="text" value="" v-model="data[item]">
+          </div>
+          <div v-for="item in this.column_name_bool" :key="item.id">
+            <label for="input-field">{{item}} (true or false)</label>
+            <input id="input-field" class="form-control" type="text" value="" v-model="data[item]">
+          </div>
+          <br>
+          <button class="btn btn-primary mb-2" v-if="this.table_name != ''" @click="sendData()" >Отправить</button>
+          </div>
+          </div>
         </div>
-      <br>
-      <div v-if="this.table_name != ''" style="background-color: rgba(40, 191, 103, 0.4)">
-      <h2  style="text-align:center">
-        Create new {{table_name}}
-      </h2>
-      <div v-for="item in this.column_name" :key="item.id">
-        <label for="input-field">{{item}}</label>
-        <input id="input-field" class="form-control" type="text" value="" v-model="data[item]">
       </div>
-      <div v-for="item in this.column_name_bool" :key="item.id">
-        <label for="input-field">{{item}} (true or false)</label>
-        <input id="input-field" class="form-control" type="text" value="" v-model="data[item]">
-      </div>
-      <br>
-      <button class="btn btn-primary mb-2" v-if="this.table_name != ''" @click="sendData()" >Отправить</button>
-      </div>
-      </div>
-    </div>
-  </div>
     </div>
 </div>
+
+
 </template>
+
 
 <script>
 import axios from 'axios'
@@ -95,8 +98,9 @@ export default {
               },
           data: this.data
           })
-      .then((res) => {
-        console.log(res)
+      .then(() => {
+        this.data = {};
+        alert('Данные добавлены');
       });
     }
   }
