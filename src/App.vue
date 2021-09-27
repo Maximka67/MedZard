@@ -4,7 +4,6 @@
     <h1>MedZard</h1>
   </header>
     <create></create>
-
   </div>
 </template>
 
@@ -17,22 +16,10 @@ export default {
   },
   data() {
     return {
-      contents: '',
       column_name: [],
       column_name_bool: [],
       table_name: '',
-      data: {},
-      test: true,
-      tables_name: [
-            'activity',
-            'disease',
-            'drug',
-            'medical-action',
-            'organ',
-            'question',
-            'symptom',
-            'specialization'
-          ]
+      data: {}
     };
     },
   methods: {
